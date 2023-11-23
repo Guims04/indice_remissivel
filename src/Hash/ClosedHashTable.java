@@ -4,17 +4,17 @@ import List.DynamicList;
 
 //Endereçamento fechado
 public class ClosedHashTable {
-  private DynamicList<Integer>[] table;
+  private DynamicList[] table;
 
   public ClosedHashTable(int size) {
     table = new DynamicList[size];
   }
 
-  public void add(int element) {
-    int position = element % table.length;
+  public void add(String element) {
+    int position = ((int) element.charAt(0)) - 65;
 
     if (table[position] == null) {
-      table[position] = new DynamicList<>();
+      table[position] = new DynamicList();
     }
 
     table[position].add(element);
@@ -31,7 +31,7 @@ public class ClosedHashTable {
   @Override
   public String toString() {
     String str = "";
-    for (DynamicList<Integer> dynamicList : table) {
+    for (DynamicList dynamicList : table) {
       str += dynamicList + "\n";
     }
     return str;

@@ -1,15 +1,12 @@
+import FileCraft.FileCraft;
 import Tree.SearchTree;
 
 public class App {
 
   public static void main(String[] args) {
-    SearchTree tree = new SearchTree();
+    FileCraft arq = new FileCraft();
 
-    tree.add(10);
-    tree.add(8);
-    tree.add(11);
-
-    tree.displayInOrder();
+    arq.readFile();
   }
 
 }

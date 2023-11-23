@@ -2,7 +2,7 @@ package List;
 
 import Node.Node;
 
-public class DynamicList<T> {
+public class DynamicList {
   Node first;
   Node last;
   int count;
@@ -12,7 +12,7 @@ public class DynamicList<T> {
     last = null;
   }
 
-  public void add(T element) {
+  public void add(Object element) {
     Node newElement = new Node(element);
 
     if (first == null) {
@@ -25,7 +25,7 @@ public class DynamicList<T> {
     count++;
   }
 
-  public void add(int position, T element) {
+  public void add(int position, Object element) {
     Node newElement = new Node(element);
 
     if (position == 0) {
@@ -55,7 +55,7 @@ public class DynamicList<T> {
     count = 0;
   }
 
-  public boolean contains(T element) {
+  public boolean contains(Object element) {
     Node aux = first;
 
     while (aux != null) {
@@ -67,7 +67,7 @@ public class DynamicList<T> {
     return false;
   }
 
-  public void remove(T element) {
+  public void remove(Object element) {
     Node aux = first;
     Node previous = null;
 
@@ -131,7 +131,7 @@ public class DynamicList<T> {
     return aux.data;
   }
 
-  public int indexOf(T element) {
+  public int indexOf(Object element) {
     Node aux = first;
     for (int i = 0; i <= count; i++) {
       if (aux.data.equals(element))
