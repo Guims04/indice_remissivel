@@ -16,21 +16,29 @@ public class FileCraft {
 
   public void readFile() {
     String palavra = "";
+    int count = 0;
     try {
       Scanner input = new Scanner(file);
 
-      while (input.hasNext()) {
-        palavra = input.next();
-        palavra = palavra.replaceAll("[^a-zA-Z]", "");
-        palavra = palavra.toUpperCase();
+      while (input.hasNextLine()) {
+        count++;
+        String[] line = input.nextLine().split(" ");
+        for (String word : line) {
+          word = word.toUpperCase();
+          word = word.replaceAll("[^A-Z]", "");
 
-        hashTable.add(palavra);
-
+          hashTable.add(word, count);
+        }
       }
+
       System.out.println(hashTable);
       input.close();
     } catch (Exception e) {
       System.out.println("We can't read your file! " + e);
     }
+  }
+
+  public void writeFile() {
+
   }
 }

@@ -12,6 +12,12 @@ public class DynamicList {
     last = null;
   }
 
+  public DynamicList(Object line) {
+    Node newElement = new Node(line);
+    first = newElement;
+    last = newElement;
+  }
+
   public void add(Object element) {
     Node newElement = new Node(element);
 
