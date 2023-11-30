@@ -31,7 +31,7 @@ public class FileCraft {
         }
       }
 
-      System.out.println(hashTable);
+      hashTable.show();
       input.close();
     } catch (Exception e) {
       System.out.println("We can't read your file! " + e);

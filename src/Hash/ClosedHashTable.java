@@ -28,12 +28,10 @@ public class ClosedHashTable {
   // }
   // }
 
-  @Override
-  public String toString() {
-    String str = "";
-    for (SearchTree dynamicList : table) {
-      str += dynamicList + "\n";
+  public void show() {
+    for (SearchTree searchTree : table) {
+      if (searchTree != null)
+        searchTree.displayInOrder();
     }
-    return str;
   }
 }
