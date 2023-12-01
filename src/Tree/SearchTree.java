@@ -32,7 +32,7 @@ public class SearchTree {
             }
         }
 
-        if (root.compareTo(root) < 0) {
+        if (root.compareTo(element) < 0) {
             if (root.right == null) {
                 root.right = element;
             } else {
