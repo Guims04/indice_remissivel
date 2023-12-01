@@ -1,5 +1,7 @@
 package Tree;
 
+import List.DynamicList;
+
 public class SearchTree {
     private TreeNode root;
 
@@ -7,7 +9,7 @@ public class SearchTree {
         root = null;
     }
 
-    public void add(Object element, int line) {
+    public void add(Object element, DynamicList line) {
         TreeNode newNode = new TreeNode(element, line);
 
         if (root == null) {
@@ -39,7 +41,7 @@ public class SearchTree {
         }
     }
 
-    public boolean research(Object element, int line) {
+    public boolean research(Object element, DynamicList line) {
         TreeNode newNode = new TreeNode(element, line);
 
         if (root == null) {
@@ -136,6 +138,7 @@ public class SearchTree {
         }
 
         System.out.print(root.data + " ");
+        root.showDynamic();
 
         if (root.right != null) {
             displayInOrder(root.right);

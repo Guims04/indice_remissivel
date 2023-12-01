@@ -1,5 +1,6 @@
 package Hash;
 
+import List.DynamicList;
 import Tree.SearchTree;
 
 //Endereçamento fechado
@@ -10,7 +11,7 @@ public class ClosedHashTable {
     table = new SearchTree[size];
   }
 
-  public void add(String element, int line) {
+  public void add(String element, DynamicList line) {
     int position = ((int) element.charAt(0)) - 65;
 
     if (table[position] == null) {

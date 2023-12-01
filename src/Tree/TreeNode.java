@@ -9,12 +9,16 @@ public class TreeNode implements Comparable<TreeNode> {
     TreeNode left;
     TreeNode right;
 
-    public TreeNode(Object data, int line) {
+    public TreeNode(Object data, DynamicList line) {
         this.data = data;
-        this.lines = new DynamicList(line);
+        this.lines = line;
         this.left = null;
         this.right = null;
         this.count = 0;
+    }
+
+    public void showDynamic() {
+        System.out.print(lines);
     }
 
     @Override
