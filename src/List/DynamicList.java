@@ -150,13 +150,17 @@ public class DynamicList {
 
   @Override
   public String toString() {
-    String str = "[";
+    String str = "";
     Node aux = first;
 
     while (aux != null) {
-      str += " " + aux.data;
+      if(aux == last) {
+        str += last.data;
+        break;
+      }
+      str += aux.data + ", ";
       aux = aux.next;
     }
-    return str + " ]";
+    return str;
   }
 }

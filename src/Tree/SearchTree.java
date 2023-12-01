@@ -20,7 +20,7 @@ public class SearchTree {
     }
 
     private void add(TreeNode element, TreeNode root) {
-        if (element == root.data) {
+        if (element.equals(root.data)) {
             root.count++;
         }
 
@@ -128,7 +128,6 @@ public class SearchTree {
     public void displayInOrder() {
         if (root != null) {
             displayInOrder(root);
-            System.out.println();
         }
     }
 
@@ -139,6 +138,7 @@ public class SearchTree {
 
         System.out.print(root.data + " ");
         root.showDynamic();
+        System.out.println();
 
         if (root.right != null) {
             displayInOrder(root.right);
