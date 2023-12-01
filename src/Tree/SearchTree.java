@@ -9,36 +9,50 @@ public class SearchTree {
         root = null;
     }
 
-    public void add(Object element, DynamicList line) {
+    public int getBiggestChildren(int leftFactor, int rightFactor) {
+        return Math.max(leftFactor, rightFactor);
+    }
+
+    public int getFactor(TreeNode root) {
+        return root == null ? -1 : root.factor;
+    }
+
+    public void add(Object element, int line) {
         TreeNode newNode = new TreeNode(element, line);
 
         if (root == null) {
             root = newNode;
         } else {
-            add(newNode, root);
+            root = add(newNode, root);
         }
     }
 
-    private void add(TreeNode element, TreeNode root) {
-        if (element.equals(root.data)) {
-            root.count++;
-        }
+    private TreeNode add(TreeNode element, TreeNode root) {
 
         if (root.compareTo(element) > 0) {
-            if (root.left == null) {
-                root.left = element;
-            } else {
-                add(element, root.left);
+            root.left = add(element, root);
+            if (getFactor(root.left) - getFactor(root.right) == 2) {
+                if (element.compareTo(root.left) < 0) {
+                    root = singleRightRotation(root);
+                } else {
+                    root = doubleRightRotation(root);
+                }
             }
+        } else if (root.compareTo(root) < 0) {
+            root.right = add(element, root);
+            if (getFactor(root.right) - getFactor(root.left) == 2) {
+                if (element.compareTo(root.right) > 0) {
+                    root = singleLeftRotation(root);
+                } else {
+                    root = doubleLeftRotation(root);
+                }
+            }
+        } else {
+            root.lines.add(element.lines.get(0));
         }
 
-        if (root.compareTo(element) < 0) {
-            if (root.right == null) {
-                root.right = element;
-            } else {
-                add(element, root.right);
-            }
-        }
+        root.factor = getBiggestChildren(getFactor(root.left), getFactor(root.right)) + 1;
+        return root;
     }
 
     public boolean research(Object element, DynamicList line) {
@@ -64,6 +78,36 @@ public class SearchTree {
         }
 
         return false;
+    }
+
+    private TreeNode singleRightRotation(TreeNode node) {
+        TreeNode aux = node.left;
+        node.left = aux.right;
+        aux.right = node;
+        node.factor = getBiggestChildren(getFactor(node.left), getFactor(node.right)) + 1;
+        aux.factor = getBiggestChildren(getFactor(aux.left), node.factor) + 1;
+        return aux;
+    }
+
+    private TreeNode singleLeftRotation(TreeNode node) {
+        TreeNode aux = node.right;
+        node.right = aux.left;
+        aux.left = node;
+        node.factor = getBiggestChildren(getFactor(node.left), getFactor(node.right)) + 1;
+        aux.factor = getBiggestChildren(getFactor(aux.right), node.factor) + 1;
+        return aux;
+    }
+
+    // ratacao dupla para direita
+    private TreeNode doubleRightRotation(TreeNode node) {
+        node.left = singleLeftRotation(node.left);
+        return singleRightRotation(node);
+    }
+
+    // ratacao dupla para esquerda
+    private TreeNode doubleLeftRotation(TreeNode node) {
+        node.right = singleRightRotation(node.right);
+        return singleLeftRotation(node);
     }
 
     // public void remove(Object element) {

@@ -5,7 +5,7 @@ import List.DynamicList;
 public class TreeNode implements Comparable<TreeNode> {
     Object data;
     DynamicList lines;
-    int count;
+    int factor;
     TreeNode left;
     TreeNode right;
 
@@ -14,7 +14,7 @@ public class TreeNode implements Comparable<TreeNode> {
         this.lines = line;
         this.left = null;
         this.right = null;
-        this.count = 0;
+        this.factor = 0;
     }
 
     public void showDynamic() {
