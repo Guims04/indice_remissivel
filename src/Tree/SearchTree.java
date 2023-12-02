@@ -17,7 +17,7 @@ public class SearchTree {
         return root == null ? -1 : root.factor;
     }
 
-    public void add(Object element, int line) {
+    public void add(Object element, DynamicList line) {
         TreeNode newNode = new TreeNode(element, line);
 
         if (root == null) {
@@ -29,8 +29,10 @@ public class SearchTree {
 
     private TreeNode add(TreeNode element, TreeNode root) {
 
-        if (root.compareTo(element) > 0) {
-            root.left = add(element, root);
+        if (root == null) {
+            root = element;
+        } else if (root.compareTo(element) > 0) {
+            root.left = add(element, root.left);
             if (getFactor(root.left) - getFactor(root.right) == 2) {
                 if (element.compareTo(root.left) < 0) {
                     root = singleRightRotation(root);
@@ -38,8 +40,8 @@ public class SearchTree {
                     root = doubleRightRotation(root);
                 }
             }
-        } else if (root.compareTo(root) < 0) {
-            root.right = add(element, root);
+        } else if (root.compareTo(element) < 0) {
+            root.right = add(element, root.right);
             if (getFactor(root.right) - getFactor(root.left) == 2) {
                 if (element.compareTo(root.right) > 0) {
                     root = singleLeftRotation(root);
@@ -53,6 +55,7 @@ public class SearchTree {
 
         root.factor = getBiggestChildren(getFactor(root.left), getFactor(root.right)) + 1;
         return root;
+
     }
 
     public boolean research(Object element, DynamicList line) {
@@ -65,7 +68,7 @@ public class SearchTree {
     }
 
     private boolean research(TreeNode element, TreeNode root) {
-        if (element == root.data) {
+        if (element.data.equals(root.data)) {
             return true;
         } else if (element.compareTo(root) < 0) {
             if (root.left == null)
@@ -169,24 +172,29 @@ public class SearchTree {
         System.out.print(root.data + " ");
     }
 
-    public void displayInOrder() {
+    public String displayInOrder() {
+        String result = "";
+
         if (root != null) {
-            displayInOrder(root);
+            result += displayInOrder(root, result);
         }
+
+        return result;
     }
 
-    private void displayInOrder(TreeNode root) {
+    private String displayInOrder(TreeNode root, String result) {
+
         if (root.left != null) {
-            displayInOrder(root.left);
+            result = displayInOrder(root.left, result);
         }
 
-        System.out.print(root.data + " ");
-        root.showDynamic();
-        System.out.println();
+        result += root.data + " " + root.showDynamic() + " \n";
 
         if (root.right != null) {
-            displayInOrder(root.right);
+            result = displayInOrder(root.right, result);
         }
+
+        return result;
     }
 
     public void displayPreOrder() {

@@ -29,10 +29,13 @@ public class ClosedHashTable {
   // }
   // }
 
-  public void show() {
+  public String show() {
+    String result = "";
     for (SearchTree searchTree : table) {
       if (searchTree != null)
-        searchTree.displayInOrder();
+        result += searchTree.displayInOrder();
     }
+
+    return result;
   }
 }

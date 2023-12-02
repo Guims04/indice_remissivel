@@ -17,12 +17,13 @@ public class TreeNode implements Comparable<TreeNode> {
         this.factor = 0;
     }
 
-    public void showDynamic() {
-        System.out.print(lines);
+    public String showDynamic() {
+        return lines.toString();
     }
 
     @Override
     public int compareTo(TreeNode o) {
+
         if (data instanceof Integer && o.data instanceof Integer)
             return ((Integer) data).compareTo((Integer) o.data);
         else if (data instanceof Character && o.data instanceof Character)

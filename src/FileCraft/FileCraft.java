@@ -1,6 +1,10 @@
 package FileCraft;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.Normalizer;
 import java.util.Scanner;
 
 import Hash.ClosedHashTable;
@@ -9,12 +13,14 @@ import List.DynamicList;
 public class FileCraft {
   File text;
   File key;
+  File index;
   ClosedHashTable hashTable;
 
   public FileCraft() {
     hashTable = new ClosedHashTable(26);
     text = new File("./src/FileCraft/Files/texto.txt");
     key = new File("./src/FileCraft/Files/chave.txt");
+    index = new File("./src/FileCraft/Files/index.txt");
   }
 
   public void readKeys() {
@@ -27,14 +33,18 @@ public class FileCraft {
         for (String word : lineKey) {
           DynamicList totalOfLines;
           word = word.toUpperCase();
-          word = word.replaceAll("[^A-Z]", "");
+          word = normalizeText(word);
+          word = word.replaceAll("[^A-Z-]", "");
 
           totalOfLines = compareWordsByText(word);
 
           hashTable.add(word, totalOfLines);
         }
       }
-      hashTable.show();
+
+      System.out.println(hashTable.show());
+      WriteIndex(hashTable.show());
+
     } catch (Exception e) {
       System.out.println("We can't read your file! " + e);
     }
@@ -52,7 +62,8 @@ public class FileCraft {
 
         for (String wordSearch : currentLine) {
           wordSearch = wordSearch.toUpperCase();
-          wordSearch = wordSearch.replaceAll("[^A-Z]", "");
+          wordSearch = normalizeText(wordSearch);
+          wordSearch = wordSearch.replaceAll("[^A-Z-]", "");
 
           if (wordSearch.equals(currentWord)) {
             totalOfLines.add(line);
@@ -64,5 +75,24 @@ public class FileCraft {
       System.out.println("We can't compare your files!!");
       return null;
     }
+  }
+
+  public void WriteIndex(String line) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(index))) {
+      writer.write(line);
+      System.out.println("Index written to file successfully.");
+    } catch (IOException e) {
+      System.out.println("Error writing to the index file: " + e);
+    }
+  }
+
+  public static String normalizeText(String input) {
+    // Remover acentos e normalizar para a forma NFD (Decomposition, Form)
+    String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+
+    // Substituir caracteres não ASCII
+    normalized = normalized.replaceAll("[^\\p{ASCII}]", "");
+
+    return normalized;
   }
 }
