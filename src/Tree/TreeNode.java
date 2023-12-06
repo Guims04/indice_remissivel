@@ -2,6 +2,8 @@ package Tree;
 
 import List.DynamicList;
 
+import java.text.Normalizer;
+
 public class TreeNode implements Comparable<TreeNode> {
     Object data;
     DynamicList lines;
@@ -23,7 +25,6 @@ public class TreeNode implements Comparable<TreeNode> {
 
     @Override
     public int compareTo(TreeNode o) {
-
         if (data instanceof Integer && o.data instanceof Integer)
             return ((Integer) data).compareTo((Integer) o.data);
         else if (data instanceof Character && o.data instanceof Character)
@@ -32,9 +33,12 @@ public class TreeNode implements Comparable<TreeNode> {
             return ((Double) data).compareTo((Double) o.data);
         else if (data instanceof Float && o.data instanceof Float)
             return ((Float) data).compareTo((Float) o.data);
-        else if (data instanceof String && o.data instanceof String)
-            return ((String) data).compareTo((String) o.data);
-        else
+        else if (data instanceof String && o.data instanceof String){
+            String val1 = normalizeText((String) data);
+            String val2 = normalizeText((String) o.data);
+
+            return (val1).compareToIgnoreCase(val2);
+        } else
             return -1;
     }
 
@@ -47,5 +51,15 @@ public class TreeNode implements Comparable<TreeNode> {
             }
         }
         return -1;
+    }
+
+    public static String normalizeText(String input) {
+        // Remover acentos e normalizar para a forma NFD (Decomposition, Form)
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+
+        // Substituir caracteres não ASCII
+        normalized = normalized.replaceAll("[^\\p{ASCII}]", "");
+
+        return normalized;
     }
 }

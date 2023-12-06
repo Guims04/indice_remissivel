@@ -31,6 +31,7 @@ public class FileCraft {
         String[] lineKey = inputKey.nextLine().split(" ");
 
         for (String word : lineKey) {
+          String indexKey = word;
           DynamicList totalOfLines;
           word = word.toUpperCase();
           word = normalizeText(word);
@@ -38,7 +39,7 @@ public class FileCraft {
 
           totalOfLines = compareWordsByText(word);
 
-          hashTable.add(word, totalOfLines);
+          hashTable.add(word, totalOfLines, indexKey);
         }
       }
 

@@ -11,14 +11,15 @@ public class ClosedHashTable {
     table = new SearchTree[size];
   }
 
-  public void add(String element, DynamicList line) {
+  public void add(String element, DynamicList line, String word) {
     int position = ((int) element.charAt(0)) - 65;
 
     if (table[position] == null) {
       table[position] = new SearchTree();
     }
 
-    table[position].add(element, line);
+    table[position].add(word, line);
+
   }
 
   // public void remove(int element) {

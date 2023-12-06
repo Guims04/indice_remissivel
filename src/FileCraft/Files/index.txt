@@ -1,6 +1,6 @@
-E 1, 4 
-EU 2 
-GOSTO 2 
-GUARDA-ROUPA 4 
-GUILHERME 1 
-JOAO 1 
+âncora  
+angola  
+animal 1701, 2036, 4494, 4933, 4941, 5619, 6961, 6962, 9842, 10630, 10888, 15555, 15567, 16622, 16622, 17111, 17112, 17113 
+árvore 17745 
+avião 13681 
+joão-guilherme 13658 

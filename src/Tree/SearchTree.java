@@ -58,8 +58,8 @@ public class SearchTree {
 
     }
 
-    public boolean research(Object element, DynamicList line) {
-        TreeNode newNode = new TreeNode(element, line);
+    public boolean research(String element) {
+        TreeNode newNode = new TreeNode(element, new DynamicList());
 
         if (root == null) {
             return false;
