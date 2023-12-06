@@ -69,7 +69,7 @@ public class SearchTree {
     }
 
     private boolean research(TreeNode element, TreeNode root) {
-        if (element.data.equals(root.data)) {
+        if (element.compareTo(root) == 0) {
             root.lines.add(element.lines.get(0));
             return true;
         } else if (element.compareTo(root) < 0) {

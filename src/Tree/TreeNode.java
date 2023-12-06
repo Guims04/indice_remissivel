@@ -43,7 +43,11 @@ public class TreeNode implements Comparable<TreeNode> {
             return ((Float) data).compareTo((Float) o.data);
         else if (data instanceof String && o.data instanceof String) {
             String val1 = normalizeText((String) data);
+            val1 = val1.toUpperCase();
+            val1 = val1.replaceAll("[^A-Z-]", "");
             String val2 = normalizeText((String) o.data);
+            val2 = val2.toUpperCase();
+            val2 = val2.replaceAll("[^A-Z-]", "");
 
             return (val1).compareToIgnoreCase(val2);
         } else
