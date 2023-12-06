@@ -1,5 +1,7 @@
 package Hash;
 
+import java.text.Normalizer;
+
 import List.DynamicList;
 import Tree.SearchTree;
 
@@ -11,14 +13,36 @@ public class ClosedHashTable {
     table = new SearchTree[size];
   }
 
-  public void add(String element, DynamicList line, String word) {
+  public void add(String element) {
+    String word = element;
+    element = element.toUpperCase();
+    element = normalizeText(element);
+    element = element.replaceAll("[^A-Z-]", "");
+
     int position = ((int) element.charAt(0)) - 65;
 
     if (table[position] == null) {
       table[position] = new SearchTree();
     }
 
-    table[position].add(word, line);
+    table[position].add(word);
+
+  }
+
+  public void findAndInsertLine(String element, int line) {
+
+    String word = element;
+    element = element.toUpperCase();
+    element = normalizeText(element);
+    element = element.replaceAll("[^A-Z-]", "");
+
+    if (!element.equals("") && element.charAt(0) != '-') {
+      int position = ((int) element.charAt(0)) - 65;
+
+      if (table[position] != null) {
+        table[position].research(word, line);
+      }
+    }
 
   }
 
@@ -38,5 +62,15 @@ public class ClosedHashTable {
     }
 
     return result;
+  }
+
+  public static String normalizeText(String input) {
+    // Remover acentos e normalizar para a forma NFD (Decomposition, Form)
+    String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+
+    // Substituir caracteres não ASCII
+    normalized = normalized.replaceAll("[^\\p{ASCII}]", "");
+
+    return normalized;
   }
 }

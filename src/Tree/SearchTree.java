@@ -17,8 +17,8 @@ public class SearchTree {
         return root == null ? -1 : root.factor;
     }
 
-    public void add(Object element, DynamicList line) {
-        TreeNode newNode = new TreeNode(element, line);
+    public void add(Object element) {
+        TreeNode newNode = new TreeNode(element);
 
         if (root == null) {
             root = newNode;
@@ -49,17 +49,18 @@ public class SearchTree {
                     root = doubleLeftRotation(root);
                 }
             }
-        } else {
-            root.lines.add(element.lines.get(0));
         }
+        // else {
+        // root.lines.add(element.lines.get(0));
+        // }
 
         root.factor = getBiggestChildren(getFactor(root.left), getFactor(root.right)) + 1;
         return root;
 
     }
 
-    public boolean research(String element) {
-        TreeNode newNode = new TreeNode(element, new DynamicList());
+    public boolean research(String element, int line) {
+        TreeNode newNode = new TreeNode(element, line);
 
         if (root == null) {
             return false;
@@ -69,6 +70,7 @@ public class SearchTree {
 
     private boolean research(TreeNode element, TreeNode root) {
         if (element.data.equals(root.data)) {
+            root.lines.add(element.lines.get(0));
             return true;
         } else if (element.compareTo(root) < 0) {
             if (root.left == null)
@@ -188,7 +190,8 @@ public class SearchTree {
             result = displayInOrder(root.left, result);
         }
 
-        result += root.data + " " + root.showDynamic() + " \n";
+        if (root.lines.size() != 0)
+            result += root.data + " " + root.showDynamic() + " \n";
 
         if (root.right != null) {
             result = displayInOrder(root.right, result);

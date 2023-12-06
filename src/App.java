@@ -1,4 +1,5 @@
 import FileCraft.FileCraft;
+import Tree.SearchTree;
 
 public class App {
 
@@ -6,6 +7,7 @@ public class App {
     FileCraft arq = new FileCraft();
 
     arq.readKeys();
+    arq.compareText();
 
   }
 }

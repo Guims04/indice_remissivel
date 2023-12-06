@@ -21,14 +21,16 @@ public class DynamicList {
   public void add(Object element) {
     Node newElement = new Node(element);
 
-    if (first == null) {
-      first = newElement;
-      last = newElement;
-    } else {
-      last.next = newElement;
-      last = newElement;
+    if (contains(newElement) != true) {
+      if (first == null) {
+        first = newElement;
+        last = newElement;
+      } else {
+        last.next = newElement;
+        last = newElement;
+      }
+      count++;
     }
-    count++;
   }
 
   public void add(int position, Object element) {
@@ -154,7 +156,7 @@ public class DynamicList {
     Node aux = first;
 
     while (aux != null) {
-      if(aux == last) {
+      if (aux == last) {
         str += last.data;
         break;
       }

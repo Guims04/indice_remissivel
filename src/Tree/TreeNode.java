@@ -11,9 +11,17 @@ public class TreeNode implements Comparable<TreeNode> {
     TreeNode left;
     TreeNode right;
 
-    public TreeNode(Object data, DynamicList line) {
+    public TreeNode(Object data) {
         this.data = data;
-        this.lines = line;
+        this.lines = new DynamicList();
+        this.left = null;
+        this.right = null;
+        this.factor = 0;
+    }
+
+    public TreeNode(Object data, int line) {
+        this.data = data;
+        this.lines = new DynamicList(line);
         this.left = null;
         this.right = null;
         this.factor = 0;
@@ -33,7 +41,7 @@ public class TreeNode implements Comparable<TreeNode> {
             return ((Double) data).compareTo((Double) o.data);
         else if (data instanceof Float && o.data instanceof Float)
             return ((Float) data).compareTo((Float) o.data);
-        else if (data instanceof String && o.data instanceof String){
+        else if (data instanceof String && o.data instanceof String) {
             String val1 = normalizeText((String) data);
             String val2 = normalizeText((String) o.data);
 

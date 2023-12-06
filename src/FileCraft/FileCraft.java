@@ -31,29 +31,18 @@ public class FileCraft {
         String[] lineKey = inputKey.nextLine().split(" ");
 
         for (String word : lineKey) {
-          String indexKey = word;
-          DynamicList totalOfLines;
-          word = word.toUpperCase();
-          word = normalizeText(word);
-          word = word.replaceAll("[^A-Z-]", "");
-
-          totalOfLines = compareWordsByText(word);
-
-          hashTable.add(word, totalOfLines, indexKey);
+          hashTable.add(word);
         }
       }
 
-      System.out.println(hashTable.show());
-      WriteIndex(hashTable.show());
-
+      inputKey.close();
     } catch (Exception e) {
       System.out.println("We can't read your file! " + e);
     }
   }
 
-  public DynamicList compareWordsByText(String currentWord) {
+  public void compareText() {
     try {
-      DynamicList totalOfLines = new DynamicList();
       int line = 0;
 
       Scanner inputText = new Scanner(text);
@@ -62,19 +51,17 @@ public class FileCraft {
         String[] currentLine = inputText.nextLine().split(" ");
 
         for (String wordSearch : currentLine) {
-          wordSearch = wordSearch.toUpperCase();
-          wordSearch = normalizeText(wordSearch);
-          wordSearch = wordSearch.replaceAll("[^A-Z-]", "");
-
-          if (wordSearch.equals(currentWord)) {
-            totalOfLines.add(line);
-          }
+          hashTable.findAndInsertLine(wordSearch, line);
         }
       }
-      return totalOfLines;
+
+      System.out.println(hashTable.show());
+      WriteIndex(hashTable.show());
+
+      inputText.close();
     } catch (Exception e) {
       System.out.println("We can't compare your files!!");
-      return null;
+      System.out.println(e);
     }
   }
 
@@ -85,15 +72,5 @@ public class FileCraft {
     } catch (IOException e) {
       System.out.println("Error writing to the index file: " + e);
     }
-  }
-
-  public static String normalizeText(String input) {
-    // Remover acentos e normalizar para a forma NFD (Decomposition, Form)
-    String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
-
-    // Substituir caracteres não ASCII
-    normalized = normalized.replaceAll("[^\\p{ASCII}]", "");
-
-    return normalized;
   }
 }
